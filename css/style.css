@@ -1,0 +1,165 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* En este body cuando ponía height y width 100%
+junto con el display grid place: center se me des-
+colocaba todo. No entiendo por qué. 
+*/
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-image: url(/imagenes/playa.jpg);
+  background-repeat: no-repeat;
+  background-size: 400px 200px;
+
+  /* background-color: rgb(48, 209, 255); */
+  background-color: rgb(31, 41, 156);
+
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-columns: auto;
+  grid-template-rows: 2fr 3fr 2fr 2fr;
+
+  grid-template-areas:
+    "header"
+    "seccionform"
+    "seccionvuelo"
+    "seccionvuelo";
+}
+
+header {
+  grid-area: header;
+  font-size: 4rem;
+  align-self: center;
+  margin: 0 auto 0 auto;
+}
+
+/* Aquí empieza todo lo relacionado con la seccion form */
+
+section.seccion_form {
+  grid-area: seccionform;
+  margin: 0 auto 0 auto;
+}
+
+form {
+  background-color: rgb(242, 89, 41);
+  border-radius: 5%;
+  min-width: 75vw;
+  max-width: 85vw;
+  min-height: 20rem;
+
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 1fr 0.4fr 0.4fr;
+
+  grid-template-areas:
+    "seleccion_vuelo"
+    "seleccion_persona_fecha"
+    "seleccion_boton_enviar";
+}
+
+div {
+  min-width: 70vw;
+  max-width: 80vw;
+}
+
+/* AQUÍ EMPIEZA CSS DE BOTONES ORIGEN, INTERCAMBIAR, DESTINO */
+
+.div_seleccion_vuelo {
+  grid-area: seleccion_vuelo;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+input.elemento_seleccion_vuelo {
+  width: 9rem;
+  height: 2.2rem;
+}
+
+.div_seleccion_vuelo > label {
+  display: flex;
+  height: fit-content;
+}
+
+.div_seleccion_vuelo > label:nth-child(2) {
+  justify-content: center;
+  align-content: center;
+}
+
+.div_seleccion_vuelo > label:nth-child(3) {
+  justify-content: end;
+  align-content: center;
+}
+
+#input_origen {
+  margin-left: 2rem;
+}
+
+#input_destino {
+  margin-right: 2rem;
+}
+
+/* AQUÍ TERMINA CSS DE BOTONES ORIGEN, INTERCAMBIAR, DESTINO */
+
+/* EMPIEZA CSS de PERSONA Y FECHA */
+
+.div_seleccion_persona_fecha {
+  grid-area: seleccion_persona_fecha;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+}
+
+.div_seleccion_persona_fecha > label {
+  height: fit-content;
+}
+
+#seleccion_numero_persona {
+  width: 4.5rem;
+  height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#seleccion_fecha {
+  width: 8rem;
+  height: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* TERMINA CSS de PERSONA Y FECHA */
+/* EMPIEZA CSS de BOTÓN ENVIAR */
+
+.div_boton_enviar {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+}
+
+.div_boton_enviar > label {
+  height: fit-content;
+}
+
+#boton_viajar {
+  width: 6rem;
+  height: 2.5rem;
+  margin-right: 0.8rem;
+}
+
+/* TERMINA CSS de BOTÓN ENVIAR */
+
+/* Aquí empieza todo lo relacionado con la sección de vuelos */
+
+section.seccion_vuelos {
+  grid-area: seccionvuelo;
+  background-color: red;
+}
