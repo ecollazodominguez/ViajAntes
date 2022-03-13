@@ -14,11 +14,6 @@ html {
 }
 
 body {
-  background-image: url(/imagenes/playa.jpg);
-  background-repeat: no-repeat;
-  background-size: 400px 200px;
-
-  /* background-color: rgb(48, 209, 255); */
   background-color: rgb(31, 41, 156);
 
   display: grid;
@@ -35,17 +30,22 @@ body {
 }
 
 header {
-  grid-area: header;
-  font-size: 4rem;
-  align-self: center;
-  margin: 0 auto 0 auto;
+  font-size: 2rem;
+  text-align: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: -2rem;
 }
 
+h1 {
+  margin-top: 3rem;
+}
 /* Aquí empieza todo lo relacionado con la seccion form */
 
 section.seccion_form {
+  display: grid;
   grid-area: seccionform;
-  margin: 0 auto 0 auto;
+  place-content: center;
 }
 
 form {
@@ -75,6 +75,7 @@ div {
 .div_seleccion_vuelo {
   grid-area: seleccion_vuelo;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
