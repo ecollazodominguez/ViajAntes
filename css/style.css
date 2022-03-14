@@ -140,14 +140,8 @@ input.elemento_seleccion_vuelo {
 /* TERMINA CSS de PERSONA Y FECHA */
 /* EMPIEZA CSS de BOTÓN ENVIAR */
 
-.div_boton_enviar {
-  display: flex;
-  justify-content: flex-end;
-  align-content: flex-end;
-}
-
-.div_boton_enviar > label {
-  height: fit-content;
+form > label {
+  justify-self: flex-end;
 }
 
 #boton_viajar {
