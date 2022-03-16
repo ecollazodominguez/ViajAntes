@@ -6,69 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ViajAntes</title>
     <link href="./css/style.css" rel="stylesheet" />
-    <script type="module" src="./js/script.js"></script>
+    <script type="module" src="./script.js"></script>
   </head>
   <body>
-    <header style="background-image: url(./imagenes/playa.jpg)">
+    <header>
       <h1>ViajAntes</h1>
     </header>
-
-    <section class="seccion_form">
-      <form name="formulario_vuelos" method="get">
-        <div class="div_seleccion_vuelo">
-          <label
-            ><input
-              class="elemento_seleccion_vuelo"
-              name="origen"
-              id="input_origen"
-              type="text"
-              placeholder="Origen"
-          /></label>
-          <!-- No sé si en el botón de aquí abajo "intercambiar" debería
-               ponerle un name="intercambiar" o una class="intercambiar" -->
-          <label
-            ><button
-              class="elemento_seleccion_vuelo"
-              id="boton_intercambiar_posicion"
-            >
-              Intercambiar
-            </button></label
-          >
-          <label
-            ><input
-              class="elemento_seleccion_vuelo"
-              name="destino"
-              id="input_destino"
-              type="text"
-              placeholder="Destino"
-          /></label>
-        </div>
-
-        <div class="div_seleccion_persona_fecha">
-          <label>
-            <select class="input_de_form" id="seleccion_numero_persona">
-              <option value="1persona" disabled selected>1 pers.</option>
-            </select>
-          </label>
-          <!-- Tenemos que buscar la manera de que la fecha default sea mañana siempre -->
-          <label>
-            <input
-              type="date"
-              name="input_de_form"
-              id="seleccion_fecha"
-              disabled
-            />
-          </label>
-        </div>
-
-        <label for="boton_viajar"
-          ><button type="submit" class="boton_form" id="boton_viajar">
-            Viajar
-          </button></label
-        >
-      </form>
-    </section>
-
+    <main>
+      <section>
+        <form name="formulario_vuelos" method="get">
+          <label for="origen">Origen</label>
+          <input
+            class="elemento_seleccion_vuelo"
+            name="origen"
+            id="origen"
+            type="text"
+            placeholder="Origen"
+          />
+          <button class="elemento_seleccion_vuelo" id="cambio">
+            <img src="" alt="" />
+          </button>
+          <label for="destino">Destino</label>
+          <input
+            class="elemento_seleccion_vuelo"
+            name="destino"
+            id="destino"
+            type="text"
+            placeholder="Destino"
+          />
+          <button type="submit" class="boton_form" id="viajar">Viajar</button>
+        </form>
+      </section>
+    </main>
     <!--   <section class="seccion_vuelos">
       <h2>Vuelos disponibles</h2>
       <nav>

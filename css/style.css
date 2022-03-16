@@ -4,157 +4,109 @@
   box-sizing: border-box;
 }
 
-/* En este body cuando ponía height y width 100%
-junto con el display grid place: center se me des-
-colocaba todo. No entiendo por qué. 
-*/
-html {
-  height: 100%;
-  width: 100%;
-}
-
 body {
-  background-color: rgb(31, 41, 156);
-
-  display: grid;
-  height: 100%;
-  width: 100%;
-  grid-template-columns: auto;
-  grid-template-rows: 2fr 3fr 2fr 2fr;
-
-  grid-template-areas:
-    "header"
-    "seccionform"
-    "seccionvuelo"
-    "seccionvuelo";
+  min-height: 100vh;
 }
 
 header {
   font-size: 2rem;
   text-align: center;
+  background-image: url(../imagenes/playa.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  margin-bottom: -2rem;
-}
-
-h1 {
-  margin-top: 3rem;
-}
-/* Aquí empieza todo lo relacionado con la seccion form */
-
-section.seccion_form {
+  height: 20vh;
   display: grid;
-  grid-area: seccionform;
+  place-content: center;
+}
+
+main {
+  height: 80vh;
+  display: grid;
+  place-content: center;
+  background-color: pink;
+}
+
+main section {
+  height: 300px;
+  width: 80vw;
+  max-width: 450px;
+  background-color: lightgray;
+  display: grid;
   place-content: center;
 }
 
 form {
-  background-color: rgb(242, 89, 41);
-  border-radius: 5%;
-  min-width: 75vw;
-  max-width: 85vw;
-  min-height: 20rem;
-
+  border-radius: 5px;
   display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: 1fr 0.4fr 0.4fr;
-
-  grid-template-areas:
-    "seleccion_vuelo"
-    "seleccion_persona_fecha"
-    "seleccion_boton_enviar";
-}
-
-div {
-  min-width: 70vw;
-  max-width: 80vw;
-}
-
-/* AQUÍ EMPIEZA CSS DE BOTONES ORIGEN, INTERCAMBIAR, DESTINO */
-
-.div_seleccion_vuelo {
-  grid-area: seleccion_vuelo;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1rem;
-}
-
-input.elemento_seleccion_vuelo {
-  width: 9rem;
-  height: 2.2rem;
-}
-
-.div_seleccion_vuelo > label {
-  display: flex;
-  height: fit-content;
-}
-
-.div_seleccion_vuelo > label:nth-child(2) {
-  justify-content: center;
-  align-content: center;
-}
-
-.div_seleccion_vuelo > label:nth-child(3) {
-  justify-content: end;
-  align-content: center;
-}
-
-#input_origen {
-  margin-left: 2rem;
-}
-
-#input_destino {
-  margin-right: 2rem;
-}
-
-/* AQUÍ TERMINA CSS DE BOTONES ORIGEN, INTERCAMBIAR, DESTINO */
-
-/* EMPIEZA CSS de PERSONA Y FECHA */
-
-.div_seleccion_persona_fecha {
-  grid-area: seleccion_persona_fecha;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 3rem 1fr;
+  grid-template-rows: repeat(3, 1fr) 0.5fr;
+  height: 300px;
+  width: 80vw;
+  max-width: 450px;
   align-items: center;
+  justify-items: center;
+  background-color: yellow;
 }
 
-.div_seleccion_persona_fecha > label {
-  height: fit-content;
+input,
+button {
+  text-align: center;
 }
 
-#seleccion_numero_persona {
-  width: 4.5rem;
-  height: 1.5rem;
-  margin-bottom: 1rem;
+#viajar,
+#origen,
+#destino {
+  border-radius: 5px;
 }
 
-#seleccion_fecha {
+#cambio {
+  height: 3rem;
+  width: 3rem;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+#origen,
+#destino {
+  height: 3rem;
   width: 8rem;
-  height: 1.5rem;
-  margin-bottom: 1rem;
 }
 
-/* TERMINA CSS de PERSONA Y FECHA */
-/* EMPIEZA CSS de BOTÓN ENVIAR */
-
-form > label {
-  justify-self: flex-end;
+#destino {
+  grid-column: 3/4;
+  grid-row: 3/4;
 }
 
-#boton_viajar {
-  width: 6rem;
-  height: 2.5rem;
-  margin-right: 0.8rem;
+#viajar {
+  grid-column: 2/4;
+  grid-row: 4/5;
+  align-self: stretch;
+  justify-self: stretch;
 }
 
-/* TERMINA CSS de BOTÓN ENVIAR */
+label {
+  display: none;
+}
 
-/* Aquí empieza todo lo relacionado con la sección de vuelos */
+@media (max-width: 400px) {
+  #origen,
+  #destino {
+    width: 5rem;
+  }
 
-section.seccion_vuelos {
-  grid-area: seccionvuelo;
-  background-color: red;
+  #cambio {
+    width: 2rem;
+  }
+}
+
+@media (max-width: 300px) {
+  #origen,
+  #destino {
+    width: 3rem;
+  }
+
+  #cambio {
+    width: 1.5rem;
+  }
 }
