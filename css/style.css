@@ -1,0 +1,112 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+header {
+  font-size: 2rem;
+  text-align: center;
+  background-image: url(../imagenes/playa.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 20vh;
+  display: grid;
+  place-content: center;
+}
+
+main {
+  height: 80vh;
+  display: grid;
+  place-content: center;
+  background-color: pink;
+}
+
+main section {
+  height: 300px;
+  width: 80vw;
+  max-width: 450px;
+  background-color: lightgray;
+  display: grid;
+  place-content: center;
+}
+
+form {
+  border-radius: 5px;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: 1fr 3rem 1fr;
+  grid-template-rows: repeat(3, 1fr) 0.5fr;
+  height: 300px;
+  width: 80vw;
+  max-width: 450px;
+  align-items: center;
+  justify-items: center;
+  background-color: yellow;
+}
+
+input,
+button {
+  text-align: center;
+}
+
+#viajar,
+#origen,
+#destino {
+  border-radius: 5px;
+}
+
+#cambio {
+  height: 3rem;
+  width: 3rem;
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+#origen,
+#destino {
+  height: 3rem;
+  width: 8rem;
+}
+
+#destino {
+  grid-column: 3/4;
+  grid-row: 3/4;
+}
+
+#viajar {
+  grid-column: 2/4;
+  grid-row: 4/5;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+label {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  #origen,
+  #destino {
+    width: 5rem;
+  }
+
+  #cambio {
+    width: 2rem;
+  }
+}
+
+@media (max-width: 300px) {
+  #origen,
+  #destino {
+    width: 3rem;
+  }
+
+  #cambio {
+    width: 1.5rem;
+  }
+}

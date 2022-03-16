@@ -1,12 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ViajAntes</title>
-</head>
-<body>
-    
-</body>
+    <link href="./css/style.css" rel="stylesheet" />
+    <script type="module" src="./script.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>ViajAntes</h1>
+    </header>
+    <main>
+      <section>
+        <form name="formulario_vuelos" method="get">
+          <label for="origen">Origen</label>
+          <input
+            class="elemento_seleccion_vuelo"
+            name="origen"
+            id="origen"
+            type="text"
+            placeholder="Origen"
+          />
+          <button class="elemento_seleccion_vuelo" id="cambio">
+            <img src="" alt="" />
+          </button>
+          <label for="destino">Destino</label>
+          <input
+            class="elemento_seleccion_vuelo"
+            name="destino"
+            id="destino"
+            type="text"
+            placeholder="Destino"
+          />
+          <button type="submit" class="boton_form" id="viajar">Viajar</button>
+        </form>
+      </section>
+    </main>
+    <!--   <section class="seccion_vuelos">
+      <h2>Vuelos disponibles</h2>
+      <nav>
+        <ul class="lista_de_vuelos">
+          <li class="ficha_vuelo_1">TEXTO PLACEHOLDER</li>
+          <li class="ficha_vuelo_2">TEXTO PLACEHOLDER</li>
+        </ul>
+      </nav>
+    </section> -->
+  </body>
 </html>
