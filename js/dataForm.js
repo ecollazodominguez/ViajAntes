@@ -1,77 +1,80 @@
 "use strict";
-const loginForm = document.forms.formulario_vuelos;
 
+import {checkIataCode,} from "./dataVuelos.js";
+
+//formulario
+const vuelosForm = document.forms.formulario_vuelos;
+
+//función que comprueba que las longitudes son correctas.
 function checkLength(numero, origen, destino) {
   if (origen.length !== numero && destino.length !== numero) {
+
     throw new Error("Origen y Destino no son 3 letras, Intentalo de nuevo.");
+
   } else if (origen.length !== numero) {
+
     throw new Error("Origen no son 3 letras, Intentalo de nuevo.");
+
   } else if (destino.length !== numero) {
+    
     throw new Error("Destino no son 3 letras, Intentalo de nuevo.");
-  }
-}
+  };
+};
 
+//función que comprueba que origen y destino sean iguales o no.
+function checkSameInput(origen,destino){
+  if (origen.toUpperCase() === destino.toUpperCase()){
+
+    throw new Error("El Origen y el destino no puede ser el mismo");
+
+  };
+};
+
+//Función para conseguir el día siguiente
+function getNextDay(){
+  //cojo la fecha de hoy
+  const fechaHoy = new Date();
+  //cojo el Día (numero) de hoy
+  const diaActual = fechaHoy.getDate();
+  //cojo otra vez la fecha de hoy para luego añadirle 1 día más
+  const fechaManiana = new Date();
+  fechaManiana.setDate(diaActual+1)
+
+  let formatFecha = fechaManiana.toISOString();
+  //formateamos el string en ISO (YYY-MM-DD HH:MM:SS) y recortamos para solo coger la fecha
+  return formatFecha.slice(0,10);
+
+};
+
+//función que cambia valores Origen/Destino entre sí, usamos una variable auxiliar para no perder un valor.
 function swap() {
-  const aux = loginForm.elements.origen.value;
-  loginForm.elements.origen.value = loginForm.elements.destino.value;
-  loginForm.elements.destino.value = aux;
-}
+  const aux = vuelosForm.elements.origen.value;
+  vuelosForm.elements.origen.value = vuelosForm.elements.destino.value;
+  vuelosForm.elements.destino.value = aux;
+};
 
+
+//Función que recoge los datos del form y los devuelve como objeto.
 async function getDataForm() {
-  const origen = loginForm.elements.origen.value;
-  const destino = loginForm.elements.destino.value;
+  let origen = vuelosForm.elements.origen.value;
+  let destino = vuelosForm.elements.destino.value;
+  const pasajeros = "1";
+  const fecha = getNextDay();
 
-  try {
-    checkLength(3, origen, destino);
-    await checkIataCode(origen);
-    await checkIataCode(destino);
-  } catch (error) {
-    alert(error.message);
-  }
+  //comprobamos que los inputs tengan los requisitos que pedimos e incluso si es un codigo IATA
+  checkSameInput(origen,destino);
+  checkLength(3, origen, destino);
+  await checkIataCode(origen);
+  await checkIataCode(destino);
+    
   return {
     origen,
     destino,
+    pasajeros,
+    fecha
   };
-}
-
-//Función que nos devuelve la ACCESS TOKEN para hacer peticiones en la API AMADEUS.
-//Hacemos un fetch a una URL que en vez de GET usamos POST y les mandamos la APIKEY y la SECRETKEY para que nos respondan con el ACCESS TOKEN
-const auth = async () => {
-  const url = "https://test.api.amadeus.com/v1/security/oauth2/token";
-  const APIKEY = "u62cK2HAlJEDhnRFgQu5ben48h99NNUw";
-  const SECRETKEY = "E4brhJhcTFe99rwb";
-
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: `grant_type=client_credentials&client_id=${APIKEY}&client_secret=${SECRETKEY}`,
-  });
-
-  const token = await response.json();
-  console.log(token);
-  return token.access_token;
 };
 
-async function checkIataCode(iataCode) {
-  const accessToken = await auth();
-  const url = `https://test.api.amadeus.com/v1/reference-data/locations?subType=AIRPORT&keyword=${iataCode.toUpperCase()}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const airports = await response.json();
 
-  const airport = airports.data.filter((airport) => {
-    return airport.iataCode === iataCode.toUpperCase();
-  });
-  if (airport.length === 0) {
-    const errorIata = new Error();
-    errorIata.code = iataCode.toUpperCase();
-    errorIata.message = ` El codigo ${iataCode} es incorrecto`;
-    throw errorIata;
-  }
-}
+export default vuelosForm;
+export { getDataForm, swap };
