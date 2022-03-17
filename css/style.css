@@ -11,6 +11,8 @@ body {
 header {
   font-size: 2rem;
   text-align: center;
+  color: white;
+  opacity: 0.8;
   background-image: url(../imagenes/playa.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -21,8 +23,6 @@ header {
 
 main {
   height: 80vh;
-  display: grid;
-  place-content: center;
   background-color: pink;
 }
 
@@ -31,12 +31,18 @@ main section {
   width: 80vw;
   max-width: 450px;
   background-color: lightgray;
+  margin: 0 auto;
   display: grid;
   place-content: center;
+  position: relative;
+  bottom: 10px;
+  border-radius: 5px;
 }
 
 form {
+  /* ESTUDIAR POSIBLE CAMBIO DE COLOR DE SOMBRA */
   border-radius: 5px;
+  box-shadow: 0px 0px 10px 1px black;
   display: grid;
   gap: 0.5rem;
   grid-template-columns: 1fr 3rem 1fr;
