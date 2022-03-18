@@ -81,6 +81,7 @@ const getVuelos = async () => {
   //Hacemos un filtrado de los datos, cogiendo solo los vuelos en que los billetes SE PUEDEN COMPRAR,
   // luego ordenamos los datos según el precio de menor a mayor
   // por último mapeamos los datos a nuestro gusto, recogiendo lo que nos interesa
+
   const datos = vuelos.data
     .filter((vuelo) => {
       return vuelo.pricingOptions.fareType[0] === "PUBLISHED";
@@ -102,10 +103,16 @@ const getVuelos = async () => {
       //el objeto "carriers" tiene como keys el codigo de aerolinea y como valor el nombre de la aerolia así que
       //usamos el codigo de la aerolinea para indicar la key y así obtener el valor
       //EJ: codigo es "UX", aerolinea contiene "[UX:Air Europa, IB: Iberia]" con .carriers["UX"] accedo al valor "Air Europa"-
+
       const aerolinea = vuelos.dictionaries.carriers[codigoAerolinea];
+
+      const origen = vuelo.itineraries[0].segments[0].departure.iataCode;
+      const destino = vuelo.itineraries[0].segments[0].arrival.iataCode;
 
       return {
         //devuelvo un Objeto con los datos qu eme interesan.
+        origen: origen,
+        destino: destino,
         precio: vuelo.price.total,
         duracion,
         fechaSalida: tiempoSalida[0],
@@ -160,16 +167,13 @@ const creacionFichaDeVuelos = async () => {
 
     return ` 
             <img src="" alt="Imagen de avión placeholder">
-            <h3>${
-              datoSacado.precio
-            }€ ${datoSacado.tipoBillete.toUpperCase()}</h3> 
-            <p>Facturación: ${datoSacado.facturacion}</p>
-            <article>${datoSacado.fechaSalida} ${datoSacado.tiempoSalida} T${
-      datoSacado.terminalSalida
-    } </article>
-            <article>${datoSacado.aerolinea} ${
-      datoSacado.codigoAerolinea
-    } </article>
+            
+            <article class="article_contenedor_salida"><h2>Salida</h2> <p>${datoSacado.fechaSalida}</p> <p>${datoSacado.tiempoSalida}</p> <p>T${datoSacado.terminalSalida}</p>  <p>${datoSacado.origen}</p> </article>
+            
+            <article class="article_contenedor_llegada"><h2>Llegada</h2> <p>${datoSacado.fechaLlegada}</p> <p>${datoSacado.tiempoLlegada}</p> <p> T${datoSacado.terminalLlegada}</p> <p>${datoSacado.destino}</p> </article>
+            
+            <p>${datoSacado.precio}€</p> 
+            
             `;
   });
 

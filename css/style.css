@@ -9,6 +9,7 @@ body {
 }
 
 header {
+  font-family: "Tinos", serif;
   font-size: 2rem;
   text-align: center;
   color: white;
@@ -23,8 +24,10 @@ header {
 
 main {
   height: 80vh;
-  background-color: pink;
+  background-color: rgb(238, 238, 238);
 }
+
+/* CSS DEL FORM EMPIEZA AQUÍ */
 
 main section {
   height: 300px;
@@ -43,21 +46,39 @@ form {
   /* ESTUDIAR POSIBLE CAMBIO DE COLOR DE SOMBRA */
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px black;
+  /* Así se añade el gradiente */
+  background-image: linear-gradient(
+    white,
+    rgb(208, 235, 236),
+    rgb(146, 229, 250)
+  );
+  /* La versión de abajo es con un gradiente a gris muy claro
+   background-image: linear-gradient(white, rgb(238, 238, 238))
+   Así con un gris más metalizado:
+   background-image: linear-gradient(white, rgb(150, 154, 155));
+   Así con un color azul marino:
+   background-image: linear-gradient(white, rgb(146, 229, 250));
+   */
+  background-color: white;
   display: grid;
-  gap: 0.5rem;
   grid-template-columns: 1fr 3rem 1fr;
   grid-template-rows: repeat(3, 1fr) 0.5fr;
+  gap: 0.5rem;
   height: 300px;
   width: 80vw;
   max-width: 450px;
   align-items: center;
   justify-items: center;
-  background-color: yellow;
 }
+
+/* CSS DEL FORM TERMINA AQUÍ */
+/* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
 
 input,
 button {
+  font-size: 1.5rem;
   text-align: center;
+  font-family: "Tinos", serif;
 }
 
 #viajar,
@@ -71,48 +92,89 @@ button {
   width: 3rem;
   grid-column: 2/3;
   grid-row: 2/3;
+  /* Hay que corregir la imagen/botón. En resoluciones más pequeñas se corta y hay que cambiar el color del fondo */
+  background-image: url(../imagenes/flechas-circulo.jpg);
+  background-size: cover;
+  background-position: center;
+  border: white;
 }
 
 #origen,
 #destino {
   height: 3rem;
-  width: 8rem;
+  width: 11rem;
+  justify-self: end;
 }
 
 #destino {
   grid-column: 3/4;
   grid-row: 3/4;
+  justify-self: start;
 }
 
 #viajar {
   grid-column: 2/4;
   grid-row: 4/5;
-  align-self: stretch;
-  justify-self: stretch;
+  justify-self: start;
+  align-self: center;
+  height: 0.4fr;
+  width: 15rem;
+  /*   align-self: stretch;
+  justify-self: stretch; */
 }
+
+/* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
 
 label {
   display: none;
 }
 
+@media (max-width: 540px) {
+  #origen,
+  #destino {
+    width: 8rem;
+  }
+
+  #viajar {
+    width: 12rem;
+  }
+}
 @media (max-width: 400px) {
   #origen,
   #destino {
-    width: 5rem;
+    width: 5.4rem;
   }
 
   #cambio {
-    width: 2rem;
+    width: 1rem;
+  }
+
+  #viajar {
+    width: 9rem;
   }
 }
 
 @media (max-width: 300px) {
+  header {
+    font-size: 1.5rem;
+  }
+
+  input,
+  button {
+    font-size: 1rem;
+    text-align: center;
+  }
+
   #origen,
   #destino {
-    width: 3rem;
+    width: 4rem;
   }
 
   #cambio {
     width: 1.5rem;
+  }
+
+  #viajar {
+    width: 7rem;
   }
 }
