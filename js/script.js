@@ -1,17 +1,18 @@
 import vuelosForm, { swap } from "./dataForm.js";
 
-import { getVuelos } from "./dataVuelos.js";
+import { creacionFichaDeVuelos } from "./dataVuelos.js";
 
 const buttonSwap = document.querySelector("button#cambio");
+const buttonSubmit = document.querySelector("#viajar");
 
 //Evento de cuando se hace el submit (Se le da al botón viajar);
 vuelosForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (e.submitter === buttonSubmit){
+  if (e.submitter === buttonSubmit) {
     try {
-      const datos = await getVuelos();
+      await creacionFichaDeVuelos();
 
-      console.log(datos);
+      /* console.log(datos); */
     } catch (error) {
       alert(error.message);
     }
@@ -24,4 +25,3 @@ vuelosForm.addEventListener("submit", async (e) => {
 buttonSwap.addEventListener("click", (e) => {
   swap();
 });
-
