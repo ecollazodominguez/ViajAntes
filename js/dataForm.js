@@ -5,6 +5,9 @@ import { checkIataCode } from "./dataVuelos.js";
 //formulario
 const vuelosForm = document.forms.formulario_vuelos;
 
+//Creamos una funcion de retardo.
+const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
+
 //función que comprueba que las longitudes son correctas.
 function checkLength(numero, origen, destino) {
   if (origen.length !== numero && destino.length !== numero) {
@@ -56,6 +59,8 @@ async function getDataForm() {
   checkSameInput(origen, destino);
   checkLength(3, origen, destino);
   await checkIataCode(origen);
+  //provocamos un pequeño retardo para que no se apilen las peticiones y de error.
+  await delay();
   await checkIataCode(destino);
 
   return {

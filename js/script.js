@@ -37,7 +37,7 @@ vuelosForm.addEventListener("submit", async (e) => {
     try {
       await creacionFichaDeVuelos();
     } catch (error) {
-      alert(error);
+      alert(error.message);
     }
     removePanel(sectionLoading);
     resetInputs();

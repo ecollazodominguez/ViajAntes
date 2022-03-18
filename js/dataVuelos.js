@@ -6,7 +6,7 @@ import { getDataForm } from "./dataForm.js";
 const checkResponse = async (response) => {
   if (!response.ok) {
     if (response.status === 429) {
-      throw new Error("Has pulsado mucho el botón. Vuelva a intentarlo.");
+      throw new Error("Se ha producido un error. Vuelva a intentarlo.");
     } else {
       throw new Error(
         "Ha ocurrido un error en la petición. Vuelva a intentarlo."
@@ -173,7 +173,7 @@ const getVuelos = async () => {
 
 /* Mi código (alberto) que hice sin saber el objeto que obtendría */
 
-const ulVuelos = document.querySelector("ul");
+const seccionVuelos = document.querySelector(".seccion_vuelos");
 
 /* Creación de ficha de Vuelo, para el DOM */
 
@@ -186,7 +186,7 @@ const creacionFichaDeVuelos = async () => {
       datoSacado.facturacion = "Sí";
     }
 
-    return ` 
+    return ` <li>
             <img src="" alt="Imagen de avión placeholder">
             
             <article class="article_contenedor_salida"><h2>Salida</h2> <p>${datoSacado.fechaSalida}</p> <p>${datoSacado.tiempoSalida}</p> <p>T${datoSacado.terminalSalida}</p>  <p>${datoSacado.origen}</p> </article>
@@ -195,10 +195,14 @@ const creacionFichaDeVuelos = async () => {
             
             <p>${datoSacado.precio}€</p> 
             
-            `;
+            </li>`;
   });
 
-  ulVuelos.innerHTML = `<li>${datos}</li>`;
+  seccionVuelos.innerHTML = `<h2> Vuelos disponibles</h2>
+                              ${datos.join("")}`;
+
+  //Movemos el scrollbar al top de la seccion
+  window.scroll(0, seccionVuelos.offsetTop);
 };
 
 export { checkIataCode, getVuelos, creacionFichaDeVuelos };
