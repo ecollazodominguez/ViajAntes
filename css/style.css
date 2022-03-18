@@ -8,11 +8,40 @@ body {
   min-height: 100vh;
 }
 
-header {
-  font-family: "Tinos", serif;
-  font-size: 2rem;
+section.loading {
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.9;
+  font-size: 3rem;
   text-align: center;
-  color: white;
+  display: grid;
+  place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  animation-name: moveColor;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes moveColor {
+  0% {
+    background-color: rgb(199, 218, 240);
+  }
+  50% {
+    background-color: rgb(166, 217, 230);
+  }
+  100% {
+    background-color: rgb(199, 218, 240);
+  }
+}
+
+header {
+  font-family: "Charm", serif;
+  font-size: 2.5rem;
+  text-align: center;
   opacity: 0.8;
   background-image: url(../imagenes/playa.jpg);
   background-repeat: no-repeat;
@@ -20,6 +49,20 @@ header {
   height: 20vh;
   display: grid;
   place-content: center;
+}
+
+h1 {
+  font-weight: normal;
+  color: white;
+  /* background: linear-gradient(
+    to right,
+    rgb(246, 189, 0) 10%,
+    rgb(248, 228, 164) 65%,
+    rgb(250, 239, 204) 30%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  text-shadow: 3px 3px 1px black;
 }
 
 main {
@@ -38,7 +81,7 @@ main section {
   display: grid;
   place-content: center;
   position: relative;
-  bottom: 10px;
+  bottom: 13px;
   border-radius: 5px;
 }
 
@@ -47,11 +90,7 @@ form {
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px black;
   /* Así se añade el gradiente */
-  background-image: linear-gradient(
-    white,
-    rgb(208, 235, 236),
-    rgb(146, 229, 250)
-  );
+  background: linear-gradient(white, rgb(208, 235, 236), rgb(146, 229, 250));
   /* La versión de abajo es con un gradiente a gris muy claro
    background-image: linear-gradient(white, rgb(238, 238, 238))
    Así con un gris más metalizado:
