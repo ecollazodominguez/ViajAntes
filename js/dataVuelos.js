@@ -2,6 +2,19 @@
 
 import { getDataForm } from "./dataForm.js";
 
+//Comprobamos que la respues de las peticiones estén OK
+const checkResponse = async (response) => {
+  if (!response.ok) {
+    if (response.status === 429) {
+      throw new Error("Se ha producido un error. Vuelva a intentarlo.");
+    } else {
+      throw new Error(
+        "Ha ocurrido un error en la petición. Vuelva a intentarlo."
+      );
+    }
+  }
+};
+
 //Función que a través de una petición API comprobamos si el IATA code escrito en el form existe
 async function checkIataCode(iataCode) {
   const accessToken = await auth();
@@ -12,6 +25,8 @@ async function checkIataCode(iataCode) {
       Authorization: `Bearer ${accessToken}`,
     },
   });
+
+  await checkResponse(response);
   const airports = await response.json();
 
   //Como recibimos distintos aeropuertos filtramos por la coincidencia de iataCode.
@@ -43,6 +58,8 @@ const auth = async () => {
     body: `grant_type=client_credentials&client_id=${APIKEY}&client_secret=${SECRETKEY}`,
   });
 
+  await checkResponse(response);
+
   const token = await response.json();
   return token.access_token;
 };
@@ -63,8 +80,9 @@ const searchAPI = async () => {
     },
   });
 
+  await checkResponse(response);
+
   const vuelos = await response.json();
-  console.log(vuelos);
 
   //Si no hay datos salta error
   if (vuelos.data.length === 0) {
@@ -96,7 +114,7 @@ const getVuelos = async () => {
       //Duración se representa como "PT14H20M" para recoger bien los datos eliminamos los 2 primeros caracteres "PT" y asi tener "14H20M";
       const duracion = vuelo.itineraries[0].duration.slice(2);
       //Tiempo de llegada es lo mismo que el de salida pero como la fecha ya la tenemos (es el mismo día) solo nos interesa la hora, así que obviamos la fecha.
-      const [, tiempoLlegada] =
+      const [fechaLlegada, tiempoLlegada] =
         vuelo.itineraries[0].segments[0].arrival.at.split("T");
       const codigoAerolinea = vuelo.itineraries[0].segments[0].carrierCode;
       //aerolinea no está en "vuelos.data" así que accedo a los datos con la variable de fuera (Quizá no es buena idea?)
@@ -118,6 +136,7 @@ const getVuelos = async () => {
         fechaSalida: tiempoSalida[0],
         tiempoSalida: tiempoSalida[1],
         terminalSalida: vuelo.itineraries[0].segments[0].departure.terminal,
+        fechaLlegada,
         tiempoLlegada,
         terminalLlegada: vuelo.itineraries[0].segments[0].arrival.terminal,
         tipoBillete: vuelo.travelerPricings[0].fareDetailsBySegment[0].cabin,
@@ -138,8 +157,10 @@ const getVuelos = async () => {
 // console.log("duración",vuelos.data[0].itineraries[0].duration);
 // console.log("Salida",vuelos.data[0].itineraries[0].segments[0].departure.at);
 // console.log("terminalSalida",vuelos.data[0].itineraries[0].segments[0].departure.terminal);
+// console.log("aeropuertoSalida",vuelos.data[0].itineraries[0].segments[0].departure.iataCode);
 // console.log("llegada",vuelos.data[0].itineraries[0].segments[0].arrival.at);
 // console.log("terminalLlegada",vuelos.data[0].itineraries[0].segments[0].arrival.terminal);
+// console.log("aeropuertoLlegada",vuelos.data[0].itineraries[0].segments[0].arrival.iataCode);
 
 // console.log("Ticket a la venta?",vuelos.data[0].pricingOptions.fareType[0]);
 
@@ -152,7 +173,7 @@ const getVuelos = async () => {
 
 /* Mi código (alberto) que hice sin saber el objeto que obtendría */
 
-const ulVuelos = document.querySelector("ul");
+const seccionVuelos = document.querySelector(".seccion_vuelos");
 
 /* Creación de ficha de Vuelo, para el DOM */
 
@@ -165,7 +186,7 @@ const creacionFichaDeVuelos = async () => {
       datoSacado.facturacion = "Sí";
     }
 
-    return ` 
+    return ` <li>
             <img src="" alt="Imagen de avión placeholder">
             
             <article class="article_contenedor_salida"><h2>Salida</h2> <p>${datoSacado.fechaSalida}</p> <p>${datoSacado.tiempoSalida}</p> <p>T${datoSacado.terminalSalida}</p>  <p>${datoSacado.origen}</p> </article>
@@ -174,10 +195,14 @@ const creacionFichaDeVuelos = async () => {
             
             <p>${datoSacado.precio}€</p> 
             
-            `;
+            </li>`;
   });
 
-  ulVuelos.innerHTML = `<li>${datos}</li>`;
+  seccionVuelos.innerHTML = `<h2> Vuelos disponibles</h2>
+                              ${datos.join("")}`;
+
+  //Movemos el scrollbar al top de la seccion
+  window.scroll(0, seccionVuelos.offsetTop);
 };
 
 export { checkIataCode, getVuelos, creacionFichaDeVuelos };

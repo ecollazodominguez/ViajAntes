@@ -2,17 +2,54 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
   min-height: 100vh;
 }
 
-header {
-  font-family: "Tinos", serif;
-  font-size: 2rem;
+/* SECTION DE LA CARGA */
+
+section.loading {
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.9;
+  font-size: 3rem;
   text-align: center;
-  color: white;
+  display: grid;
+  place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  animation-name: moveColor;
+  animation-duration: 1s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  font-family: "Tinos" serif;
+}
+
+@keyframes moveColor {
+  0% {
+    background-color: rgb(199, 218, 240);
+  }
+  50% {
+    background-color: rgb(166, 217, 230);
+  }
+  100% {
+    background-color: rgb(199, 218, 240);
+  }
+}
+
+section.loading > h1 {
+  font-size: 3rem;
+}
+
+header {
+  font-family: "Charm", serif;
+  font-size: 2.5rem;
+  text-align: center;
   opacity: 0.8;
   background-image: url(../imagenes/playa.jpg);
   background-repeat: no-repeat;
@@ -20,6 +57,20 @@ header {
   height: 20vh;
   display: grid;
   place-content: center;
+}
+
+h1 {
+  font-weight: normal;
+  color: white;
+  /* background: linear-gradient(
+    to right,
+    rgb(246, 189, 0) 10%,
+    rgb(248, 228, 164) 65%,
+    rgb(250, 239, 204) 30%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;*/
+  text-shadow: 3px 3px 1px black;
 }
 
 main {
@@ -38,7 +89,7 @@ main section {
   display: grid;
   place-content: center;
   position: relative;
-  bottom: 10px;
+  bottom: 13px;
   border-radius: 5px;
 }
 
@@ -47,11 +98,7 @@ form {
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px black;
   /* Así se añade el gradiente */
-  background-image: linear-gradient(
-    white,
-    rgb(208, 235, 236),
-    rgb(146, 229, 250)
-  );
+  background: linear-gradient(white, rgb(208, 235, 236), rgb(146, 229, 250));
   /* La versión de abajo es con un gradiente a gris muy claro
    background-image: linear-gradient(white, rgb(238, 238, 238))
    Así con un gris más metalizado:
@@ -87,40 +134,68 @@ button {
   border-radius: 5px;
 }
 
+#origen,
+#destino {
+  height: 3rem;
+  width: 10rem;
+  justify-self: end;
+}
+
+#origen {
+  margin-top: 2rem;
+}
+
+#destino {
+  margin-bottom: 2rem;
+  grid-column: 3/4;
+  grid-row: 3/4;
+  justify-self: start;
+}
+
+::placeholder {
+  color: rgba(177, 171, 171, 0.719);
+}
+
+#cambio,
+#viajar {
+  cursor: pointer;
+}
+
 #cambio {
   height: 3rem;
   width: 3rem;
   grid-column: 2/3;
   grid-row: 2/3;
   /* Hay que corregir la imagen/botón. En resoluciones más pequeñas se corta y hay que cambiar el color del fondo */
-  background-image: url(../imagenes/flechas-circulo.jpg);
+  background: linear-gradient(white, rgb(208, 235, 236), rgb(146, 229, 250));
+  background-image: url(../imagenes/arrow.png);
   background-size: cover;
   background-position: center;
-  border: white;
+  border: 0;
+  transition: 0.1s transform;
 }
 
-#origen,
-#destino {
-  height: 3rem;
-  width: 11rem;
-  justify-self: end;
-}
-
-#destino {
-  grid-column: 3/4;
-  grid-row: 3/4;
-  justify-self: start;
+#cambio:active {
+  transform: scale(0.8);
 }
 
 #viajar {
+  margin-bottom: 1rem;
   grid-column: 2/4;
   grid-row: 4/5;
-  justify-self: start;
   align-self: center;
-  height: 0.4fr;
-  width: 15rem;
+  width: 10rem;
+  height: 2.5rem;
+  background-color: rgb(245, 239, 163);
+  box-shadow: 3px 3px 8px 0px black;
+  transition: 0.1s transform;
   /*   align-self: stretch;
   justify-self: stretch; */
+}
+
+#viajar:active {
+  box-shadow: 0 0 0 black, inset 4px 4px 4px black;
+  transform: scale(0.95);
 }
 
 /* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
@@ -130,13 +205,17 @@ label {
 }
 
 @media (max-width: 540px) {
+  section.loading > h1 {
+    font-size: 2.5rem;
+  }
   #origen,
   #destino {
     width: 8rem;
   }
 
   #viajar {
-    width: 12rem;
+    width: 9rem;
+    height: 2.5rem;
   }
 }
 @media (max-width: 400px) {
@@ -146,15 +225,20 @@ label {
   }
 
   #cambio {
-    width: 1rem;
+    width: 3rem;
   }
 
   #viajar {
-    width: 9rem;
+    width: 7rem;
+    height: 2rem;
   }
 }
 
 @media (max-width: 300px) {
+  section.loading > h1 {
+    font-size: 2rem;
+  }
+
   header {
     font-size: 1.5rem;
   }
@@ -171,10 +255,51 @@ label {
   }
 
   #cambio {
-    width: 1.5rem;
+    width: 3rem;
   }
 
   #viajar {
     width: 7rem;
+    height: 2rem;
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 800px) {
+  main section {
+    height: 400px;
+    max-width: 60vw;
+  }
+
+  form {
+    max-width: 60vw;
+    height: 400px;
+  }
+
+  #viajar {
+    width: 15rem;
+    height: 3rem;
+    justify-self: right;
+    margin-right: 3rem;
+  }
+  #cambio {
+    background-size: 80px;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  h1 {
+    font-size: 8rem;
+    margin-bottom: 2rem;
+  }
+}
+@media (min-width: 1080px) {
+  #origen,
+  #cambio,
+  #destino {
+    margin-right: 2rem;
+  }
+  section.loading > h1 {
+    font-size: 4rem;
   }
 }
