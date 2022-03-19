@@ -196,14 +196,14 @@ const creacionFichaDeVuelos = async () => {
 
     return `<li class="billete">
               <article class="salida_llegada">
-                <li>
+                <li class="salida">
                   <h2>Salida</h2>
                   <p>${datoSacado.fechaSalida}</p>
                   <p>${datoSacado.tiempoSalida}</p>
                   <p>T${datoSacado.terminalSalida}</p>
                   <p>${datoSacado.origen}</p>
                 </li>
-                <li>
+                <li class="llegada">
                   <h2>Llegada</h2>
                   <p>${datoSacado.fechaLlegada}</p>
                   <p>${datoSacado.tiempoLlegada}</p>
@@ -211,11 +211,11 @@ const creacionFichaDeVuelos = async () => {
                   <p>${datoSacado.destino}</p>
                 </li>
               </article>
-            <p>${datoSacado.precio}€</p> 
+            <p id="precio">${datoSacado.precio}€</p> 
            </li>`;
   });
 
-  seccionVuelos.innerHTML = `<h2> Vuelos disponibles</h2>
+  seccionVuelos.innerHTML = `<header><h2> Vuelos disponibles</h2></header>
                               ${datos.join("")}`;
 
   //Movemos el scrollbar al top de la seccion
