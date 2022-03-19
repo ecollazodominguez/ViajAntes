@@ -204,7 +204,7 @@ label {
   display: none;
 }
 
-/* Seccion Vuelo */
+/* SECCION DE VUELOS */
 
 section.seccion_vuelos {
   display: flex;
@@ -221,8 +221,14 @@ li.billete {
   flex-direction: row;
   width: 80vw;
   border-radius: 5px;
-  background-color: rgb(255, 255, 255);
-  border: 1px solid black;
+  background-image: linear-gradient(
+    302deg,
+    rgba(253, 189, 85, 1) 7.8%,
+    rgba(249, 131, 255, 1) 100.3%
+  );
+  /* background-image: url(../imagenes/avion.png);
+  opacity: 20%; */
+  border: 1px solid whitesmoke;
   border-radius: 10px;
   background-position: center;
   background-size: cover;
@@ -232,35 +238,49 @@ li.billete {
   align-content: center;
 }
 
+li.billete:hover {
+  transform: scale(1.5rem);
+}
+
 article {
   display: flex;
   flex-direction: column;
   width: 100%;
   gap: 1rem;
-  /* text-align: center; */
+  border-bottom: 1px solid black;
 }
-
-/* article li {
-  display: flex;
-  flex-direction: row;
-} */
 
 section > h2 {
   font-size: 3.5rem;
   text-align: center;
+  font-family: "Charm", serif;
+  opacity: 0.8;
+  color: white;
+  text-shadow: 3px 3px 1px black;
+  background-image: url(../imagenes/playa.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 20vh;
+  display: grid;
+  place-content: center;
 }
 
 li h2 {
   font-size: 2.3rem;
 }
 
-p#precio {
+#precio {
   display: inline-block;
+  background-color: whitesmoke;
   width: 33%;
   font-weight: bold;
-  border: 2px solid black;
   padding: 0.5rem;
   text-align: center;
+  border: 2px solid whitesmoke;
+  border-radius: 10px;
+  /*prueba*/
+
+  /*probar*/
 }
 
 li p {
@@ -268,6 +288,7 @@ li p {
   font-size: 1.5rem;
 }
 
+/*ajustes de media*/
 @media (max-width: 540px) {
   section.loading > h1 {
     font-size: 2.5rem;
@@ -359,6 +380,14 @@ li p {
   h1 {
     font-size: 8rem;
     margin-bottom: 2rem;
+  }
+
+  li h2 {
+    font-size: 4rem;
+  }
+
+  p#precio {
+    font-size: 2rem;
   }
 }
 @media (min-width: 1080px) {
