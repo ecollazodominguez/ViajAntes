@@ -46,6 +46,7 @@ section.loading > h1 {
   font-size: 3rem;
 }
 
+/*MAIN Y HEADER*/
 header {
   font-family: "Charm", serif;
   font-size: 2.5rem;
@@ -60,16 +61,7 @@ header {
 }
 
 h1 {
-  font-weight: normal;
   color: white;
-  /* background: linear-gradient(
-    to right,
-    rgb(246, 189, 0) 10%,
-    rgb(248, 228, 164) 65%,
-    rgb(250, 239, 204) 30%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;*/
   text-shadow: 3px 3px 1px black;
 }
 
@@ -94,7 +86,6 @@ main section {
 }
 
 form {
-  /* ESTUDIAR POSIBLE CAMBIO DE COLOR DE SOMBRA */
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px black;
   /* Así se añade el gradiente */
@@ -118,7 +109,6 @@ form {
   justify-items: center;
 }
 
-/* CSS DEL FORM TERMINA AQUÍ */
 /* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
 
 input,
@@ -166,7 +156,6 @@ button {
   width: 3rem;
   grid-column: 2/3;
   grid-row: 2/3;
-  /* Hay que corregir la imagen/botón. En resoluciones más pequeñas se corta y hay que cambiar el color del fondo */
   background: linear-gradient(white, rgb(208, 235, 236), rgb(146, 229, 250));
   background-image: url(../imagenes/arrow.png);
   background-size: cover;
@@ -189,8 +178,6 @@ button {
   background-color: rgb(245, 239, 163);
   box-shadow: 3px 3px 8px 0px black;
   transition: 0.1s transform;
-  /*   align-self: stretch;
-  justify-self: stretch; */
 }
 
 #viajar:active {
@@ -209,33 +196,71 @@ label {
 section.seccion_vuelos {
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 100vw;
   background-color: lightgray;
   margin: 0 auto;
   list-style: none;
-  gap: 10px;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+section > header {
+  opacity: 0.8;
+  background-image: url(../imagenes/playa.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 20vh;
+  align-self: stretch;
+}
+
+section > header > h2 {
+  font-size: 4rem;
+  line-height: 4rem;
+  text-align: center;
+  font-family: "Charm", serif;
+  color: white;
+  text-shadow: 3px 3px 1px black;
 }
 
 li.billete {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 80vw;
   border-radius: 5px;
-  background-image: linear-gradient(
+  background: linear-gradient(
     302deg,
-    rgba(253, 189, 85, 1) 7.8%,
-    rgba(249, 131, 255, 1) 100.3%
+    rgba(253, 189, 85) 7.8%,
+    rgba(249, 131, 255) 100.3%
   );
-  /* background-image: url(../imagenes/avion.png);
-  opacity: 20%; */
+  opacity: 1;
   border: 1px solid whitesmoke;
   border-radius: 10px;
-  background-position: center;
-  background-size: cover;
   padding: 1rem;
-  justify-content: center;
+  box-shadow: 0px 0px 10px 1px black;
   align-items: center;
-  align-content: center;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+li.billete:active {
+  transform: scale(99%);
+}
+
+li.billete::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: url(../imagenes/avion.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-top: 1rem;
+  opacity: 0.2;
 }
 
 li.billete:hover {
@@ -247,22 +272,15 @@ article {
   flex-direction: column;
   width: 100%;
   gap: 1rem;
-  border-bottom: 1px solid black;
 }
 
-section > h2 {
-  font-size: 3.5rem;
-  text-align: center;
-  font-family: "Charm", serif;
-  opacity: 0.8;
-  color: white;
-  text-shadow: 3px 3px 1px black;
-  background-image: url(../imagenes/playa.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 20vh;
-  display: grid;
-  place-content: center;
+article.salida_llegada li {
+  margin-right: rem;
+}
+
+li.salida {
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed black;
 }
 
 li h2 {
@@ -272,15 +290,30 @@ li h2 {
 #precio {
   display: inline-block;
   background-color: whitesmoke;
+  box-shadow: 0px 0px 15px 4px rgb(199, 79, 23);
   width: 33%;
   font-weight: bold;
   padding: 0.5rem;
   text-align: center;
   border: 2px solid whitesmoke;
   border-radius: 10px;
-  /*prueba*/
+  z-index: 1;
+  animation-name: precio;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
 
-  /*probar*/
+@keyframes precio {
+  0% {
+    box-shadow: 0px 0px 15px 8px rgb(255, 1, 1);
+  }
+  50% {
+    box-shadow: 0px 0px 15px 15px rgb(241, 81, 7);
+  }
+  100% {
+    box-shadow: 0px 0px 15px 8px rgb(248, 0, 0);
+  }
 }
 
 li p {
@@ -291,7 +324,7 @@ li p {
 /*ajustes de media*/
 @media (max-width: 540px) {
   section.loading > h1 {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
   }
   #origen,
   #destino {
@@ -304,6 +337,9 @@ li p {
   }
 }
 @media (max-width: 400px) {
+  section.loading > h1 {
+    font-size: 2.3rem;
+  }
   #origen,
   #destino {
     width: 5.4rem;
@@ -316,6 +352,9 @@ li p {
   #viajar {
     width: 7rem;
     height: 2rem;
+  }
+  p#precio {
+    font-size: 1.4rem;
   }
 }
 
@@ -386,6 +425,15 @@ li p {
     font-size: 4rem;
   }
 
+  section > header > h2 {
+    font-size: 5rem;
+  }
+
+  article.salida_llegada p {
+    font-size: 1.9rem;
+    margin-right: 1rem;
+  }
+
   p#precio {
     font-size: 2rem;
   }
@@ -398,5 +446,15 @@ li p {
   }
   section.loading > h1 {
     font-size: 4rem;
+  }
+  section > header > h2 {
+    font-size: 6rem;
+  }
+  article.salida_llegada p {
+    font-size: 2.2rem;
+    margin-right: 2.5rem;
+  }
+  p#precio {
+    font-size: 2.5rem;
   }
 }
