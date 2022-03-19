@@ -8,17 +8,6 @@ const vuelosForm = document.forms.formulario_vuelos;
 //Creamos una funcion de retardo.
 const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
 
-//función que comprueba que las longitudes son correctas.
-function checkLength(numero, origen, destino) {
-  if (origen.length !== numero && destino.length !== numero) {
-    throw new Error("Origen y Destino no son 3 letras, Intentalo de nuevo.");
-  } else if (origen.length !== numero) {
-    throw new Error("Origen no son 3 letras, Intentalo de nuevo.");
-  } else if (destino.length !== numero) {
-    throw new Error("Destino no son 3 letras, Intentalo de nuevo.");
-  }
-}
-
 //función que comprueba que origen y destino sean iguales o no.
 function checkSameInput(origen, destino) {
   if (origen.toUpperCase() === destino.toUpperCase()) {
@@ -57,7 +46,6 @@ async function getDataForm() {
 
   //comprobamos que los inputs tengan los requisitos que pedimos e incluso si es un codigo IATA
   checkSameInput(origen, destino);
-  checkLength(3, origen, destino);
   await checkIataCode(origen);
   //provocamos un pequeño retardo para que no se apilen las peticiones y de error.
   await delay();
