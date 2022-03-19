@@ -186,16 +186,33 @@ const creacionFichaDeVuelos = async () => {
       datoSacado.facturacion = "Sí";
     }
 
-    return ` <li>
-            <img src="" alt="Imagen de avión placeholder">
-            
-            <article class="article_contenedor_salida"><h2>Salida</h2> <p>${datoSacado.fechaSalida}</p> <p>${datoSacado.tiempoSalida}</p> <p>T${datoSacado.terminalSalida}</p>  <p>${datoSacado.origen}</p> </article>
-            
-            <article class="article_contenedor_llegada"><h2>Llegada</h2> <p>${datoSacado.fechaLlegada}</p> <p>${datoSacado.tiempoLlegada}</p> <p> T${datoSacado.terminalLlegada}</p> <p>${datoSacado.destino}</p> </article>
-            
+    if (isNaN(datoSacado.terminalSalida)) {
+      datoSacado.terminalSalida = 1;
+    }
+
+    if (isNaN(datoSacado.terminalLlegada)) {
+      datoSacado.terminalLlegada = 1;
+    }
+
+    return `<li class="billete">
+              <article class="salida_llegada">
+                <li>
+                  <h2>Salida</h2>
+                  <p>${datoSacado.fechaSalida}</p>
+                  <p>${datoSacado.tiempoSalida}</p>
+                  <p>T${datoSacado.terminalSalida}</p>
+                  <p>${datoSacado.origen}</p>
+                </li>
+                <li>
+                  <h2>Llegada</h2>
+                  <p>${datoSacado.fechaLlegada}</p>
+                  <p>${datoSacado.tiempoLlegada}</p>
+                  <p>T${datoSacado.terminalLlegada}</p>
+                  <p>${datoSacado.destino}</p>
+                </li>
+              </article>
             <p>${datoSacado.precio}€</p> 
-            
-            </li>`;
+           </li>`;
   });
 
   seccionVuelos.innerHTML = `<h2> Vuelos disponibles</h2>
