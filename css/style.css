@@ -5,6 +5,51 @@
   scroll-behavior: smooth;
 }
 
+/* Alteración de la paleta de colores con html */
+
+html {
+  --background-main: rgb(238, 238, 238);
+  --background-form: linear-gradient(
+    white,
+    rgb(208, 235, 236),
+    rgb(146, 229, 250)
+  );
+  --background-viajar: rgb(245, 239, 163);
+  --background-letra: black;
+  --background-precio: whitesmoke;
+  --background-letra-y-precio: rgb(235, 230, 230);
+  --background-fichavuelo: linear-gradient(
+    302deg,
+    rgba(253, 189, 85) 7.8%,
+    rgba(249, 131, 255) 100.3%
+  );
+  --background-toggle: rgba(68, 64, 64, 0.726);
+  --background-pantalla-carga1: rgb(199, 218, 240);
+  --background-pantalla-carga2: rgb(166, 217, 230);
+  --background-pantalla-carga3: rgb(199, 218, 240);
+}
+
+html.noche {
+  --background-main: rgb(63, 62, 62);
+  --background-form: linear-gradient(
+    rgb(121, 121, 121),
+    rgb(92, 103, 161),
+    rgb(15, 19, 87)
+  );
+  --background-viajar: rgb(68, 108, 238);
+  --background-letra: white;
+  --background-precio: rgb(31, 27, 27);
+  --background-fichavuelo: linear-gradient(
+    302deg,
+    rgb(153, 59, 172) 7.8%,
+    rgb(75, 130, 155) 100.3%
+  );
+  --background-toggle: rgba(0, 0, 0, 0.726);
+  --background-pantalla-carga1: rgb(67, 60, 70);
+  --background-pantalla-carga2: rgb(138, 91, 153);
+  --background-pantalla-carga3: rgb(103, 83, 110);
+}
+
 body {
   min-height: 100vh;
 }
@@ -32,13 +77,13 @@ section.loading {
 
 @keyframes moveColor {
   0% {
-    background-color: rgb(199, 218, 240);
+    background-color: var(--background-pantalla-carga1);
   }
   50% {
-    background-color: rgb(166, 217, 230);
+    background-color: var(--background-pantalla-carga2);
   }
   100% {
-    background-color: rgb(199, 218, 240);
+    background-color: var(--background-pantalla-carga3);
   }
 }
 
@@ -67,7 +112,28 @@ h1 {
 
 main {
   height: 80vh;
-  background-color: rgb(238, 238, 238);
+  background-color: var(--background-main);
+}
+
+/* Botón modo nocturno */
+#modo {
+  position: absolute;
+  top: 80px;
+  right: 8px;
+  font-size: 0px;
+  background-image: url(../imagenes/moon-solid.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.7rem;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50px;
+  border-style: none;
+}
+
+#modo.noche {
+  background-image: url(../imagenes/sun-regular.svg);
+  background-size: 1.7rem;
 }
 
 /* CSS DEL FORM EMPIEZA AQUÍ */
@@ -89,7 +155,7 @@ form {
   border-radius: 5px;
   box-shadow: 0px 0px 10px 1px black;
   /* Así se añade el gradiente */
-  background: linear-gradient(white, rgb(208, 235, 236), rgb(146, 229, 250));
+  background: var(--background-form);
   /* La versión de abajo es con un gradiente a gris muy claro
    background-image: linear-gradient(white, rgb(238, 238, 238))
    Así con un gris más metalizado:
@@ -175,7 +241,8 @@ button {
   align-self: center;
   width: 10rem;
   height: 2.5rem;
-  background-color: rgb(245, 239, 163);
+  background-color: var(--background-viajar);
+  color: var(--background-letra);
   box-shadow: 3px 3px 8px 0px black;
   transition: 0.1s transform;
 }
@@ -197,7 +264,7 @@ section.seccion_vuelos {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  background-color: lightgray;
+  background-color: var(--background-main);
   margin: 0 auto;
   list-style: none;
   gap: 0.6rem;
@@ -228,11 +295,8 @@ li.billete {
   flex-direction: row;
   width: 80vw;
   border-radius: 5px;
-  background: linear-gradient(
-    302deg,
-    rgba(253, 189, 85) 7.8%,
-    rgba(249, 131, 255) 100.3%
-  );
+  background: var(--background-fichavuelo);
+  color: black;
   opacity: 1;
   border: 1px solid whitesmoke;
   border-radius: 10px;
@@ -272,6 +336,7 @@ article.salida_llegada {
   flex-direction: column;
   width: 100%;
   gap: 1rem;
+  color: var(--background-letra);
 }
 
 article.salida_llegada li {
@@ -293,7 +358,7 @@ li h2 {
 
 #precio {
   display: inline-block;
-  background-color: whitesmoke;
+  background-color: var(--background-letra-y-precio);
   box-shadow: 0px 0px 15px 4px rgb(199, 79, 23);
   width: 33%;
   font-weight: bold;
@@ -330,10 +395,10 @@ li p {
 
 article.salida_llegada p#toggle {
   margin-top: 1rem;
-  color: rgba(68, 64, 64, 0.726);
+  color: var(--background-toggle);
   text-align: center;
   font-weight: bold;
-  border: 2px solid rgba(68, 64, 64, 0.294);
+  border: 2px solid var(--background-toggle);
 }
 
 article.detalles {
