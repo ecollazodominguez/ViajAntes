@@ -210,8 +210,15 @@ const creacionFichaDeVuelos = async () => {
                   <p>T${datoSacado.terminalLlegada}</p>
                   <p>${datoSacado.destino}</p>
                 </li>
+                <p id="toggle">Pulsa para más detalles</p>
+                <article id="collapse" class="detalles collapsed">
+                  <p>Facturación: ${datoSacado.facturacion} </p>
+                  <p>Duración: ${datoSacado.duracion} </p>
+                  <p>${datoSacado.aerolinea}  - ${datoSacado.codigoAerolinea}</p>
+                  <p>${datoSacado.tipoBillete}</P>  
+                </article>
               </article>
-            <p id="precio">${datoSacado.precio}€</p> 
+            <p id="precio">${datoSacado.precio}€</p>
            </li>`;
   });
 
