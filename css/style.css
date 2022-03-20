@@ -267,7 +267,7 @@ li.billete:hover {
   transform: scale(1.5rem);
 }
 
-article {
+article.salida_llegada {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -275,12 +275,16 @@ article {
 }
 
 article.salida_llegada li {
-  margin-right: rem;
+  margin-right: 1rem;
 }
 
+li.llegada {
+  border-top: 1px dashed black;
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+}
 li.salida {
-  padding-bottom: 1rem;
-  border-bottom: 1px dashed black;
+  padding-top: 1rem;
 }
 
 li h2 {
@@ -302,6 +306,7 @@ li h2 {
   animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
+  margin-bottom: 4.5rem;
 }
 
 @keyframes precio {
@@ -321,6 +326,41 @@ li p {
   font-size: 1.5rem;
 }
 
+/* COLLAPSE/EXPAND DE DETALLES BILLETES */
+
+article.salida_llegada p#toggle {
+  margin-top: 1rem;
+  color: rgba(68, 64, 64, 0.726);
+  text-align: center;
+  font-weight: bold;
+  border: 2px solid rgba(68, 64, 64, 0.294);
+}
+
+article.detalles {
+  display: flex;
+  height: 100px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  font-family: "Tinos" serif;
+  transition: height 0.35s ease;
+  overflow: hidden;
+}
+
+article.collapsing {
+  transition: height 0.35s ease;
+}
+article.collapsed {
+  height: 0;
+}
+
+article.detalles > p {
+  flex-grow: 2;
+  font-size: 1.4rem;
+  padding-right: 0.5rem;
+}
+
 /*ajustes de media*/
 @media (max-width: 540px) {
   section.loading > h1 {
@@ -334,6 +374,16 @@ li p {
   #viajar {
     width: 9rem;
     height: 2.5rem;
+  }
+  li.llegada {
+    margin-top: 1rem;
+  }
+  article.detalles > p {
+    font-size: 1.3rem;
+  }
+
+  p#precio {
+    margin-bottom: 7.5rem;
   }
 }
 @media (max-width: 400px) {
@@ -353,8 +403,18 @@ li p {
     width: 7rem;
     height: 2rem;
   }
+
+  li.llegada {
+    margin-top: 1rem;
+  }
+
+  article.detalles > p {
+    font-size: 1.2rem;
+  }
+
   p#precio {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
+    margin-bottom: 10rem;
   }
 }
 
@@ -387,7 +447,16 @@ li p {
     height: 2rem;
   }
 
+  li.llegada {
+    margin-top: 1.5rem;
+  }
+
+  article.detalles > p {
+    font-size: 1.1rem;
+  }
+
   p#precio {
+    margin-bottom: 8.5rem;
     font-size: 1rem;
   }
 }
@@ -422,7 +491,7 @@ li p {
   }
 
   li h2 {
-    font-size: 4rem;
+    font-size: 2.6rem;
   }
 
   section > header > h2 {
@@ -430,8 +499,12 @@ li p {
   }
 
   article.salida_llegada p {
-    font-size: 1.9rem;
+    font-size: 1.7rem;
     margin-right: 1rem;
+  }
+
+  article.detalles > p {
+    font-size: 1.5rem;
   }
 
   p#precio {
@@ -454,7 +527,18 @@ li p {
     font-size: 2.2rem;
     margin-right: 2.5rem;
   }
+
+  article.detalles > p {
+    font-size: 1.7rem;
+  }
+
   p#precio {
     font-size: 2.5rem;
+    margin-bottom: 5.5rem;
+  }
+}
+@media (min-width: 1800px) {
+  p#precio {
+    margin-top: 2rem;
   }
 }

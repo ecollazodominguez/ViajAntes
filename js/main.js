@@ -28,6 +28,24 @@ const removePanel = (panel) => {
   panel.remove();
 };
 
+//funcion que segun el estado de la clase en el que esté el article se expande o se colapsa
+const collapseDetallesBillete = (e) => {
+  const articleToggle = e.target.querySelector("article#collapse");
+
+  let height = getComputedStyle(articleToggle).height;
+  if (height === "0px") {
+    articleToggle.classList.replace("collapsed", "collapsing");
+  } else {
+    articleToggle.classList.replace("collapsing", "collapsed");
+  }
+};
+
+const handlerCollapse = (billetes) => {
+  for (let i = 0; i < billetes.length; i++) {
+    billetes[i].addEventListener("click", collapseDetallesBillete);
+  }
+};
+
 //Evento de cuando se hace el submit (Se le da al botón viajar);
 vuelosForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -39,6 +57,11 @@ vuelosForm.addEventListener("submit", async (e) => {
     } catch (error) {
       alert(error.message);
     }
+
+    //Creamos el evento cuando los elementos están creados y asi poder hacer el collapse
+    const liBillete = document.querySelectorAll("li.billete");
+    handlerCollapse(liBillete);
+
     removePanel(sectionLoading);
     resetInputs();
     toggleDisableButton(buttonSubmit);
