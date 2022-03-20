@@ -5,6 +5,8 @@ import { creacionFichaDeVuelos } from "./dataVuelos.js";
 const buttonSwap = document.querySelector("button#cambio");
 const buttonSubmit = document.querySelector("#viajar");
 const { body } = document;
+const botonModo = document.querySelector("#modo");
+const html = document.querySelector("html");
 
 const toggleDisableButton = (button) => {
   button.toggleAttribute("disabled");
@@ -71,4 +73,9 @@ vuelosForm.addEventListener("submit", async (e) => {
 //Evento que cambia Origen/destino
 buttonSwap.addEventListener("click", (e) => {
   swap();
+});
+
+botonModo.addEventListener("click", (e) => {
+  botonModo.classList.toggle("noche");
+  html.classList.toggle("noche");
 });
