@@ -8,7 +8,7 @@
 /* Alteración de la paleta de colores con html */
 
 html {
-  --background-main: rgb(238, 238, 238);
+  --background-mainBody: rgb(238, 238, 238);
   --background-form: linear-gradient(
     white,
     rgb(208, 235, 236),
@@ -30,7 +30,7 @@ html {
 }
 
 html.noche {
-  --background-main: rgb(63, 62, 62);
+  --background-mainBody: rgb(63, 62, 62);
   --background-form: linear-gradient(
     rgb(121, 121, 121),
     rgb(92, 103, 161),
@@ -52,43 +52,7 @@ html.noche {
 
 body {
   min-height: 100vh;
-}
-
-/* SECTION DE LA CARGA */
-
-section.loading {
-  height: 100vh;
-  width: 100vw;
-  opacity: 0.9;
-  font-size: 3rem;
-  text-align: center;
-  display: grid;
-  place-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  animation-name: moveColor;
-  animation-duration: 1s;
-  animation-timing-function: ease-in;
-  animation-iteration-count: infinite;
-  font-family: "Tinos" serif;
-}
-
-@keyframes moveColor {
-  0% {
-    background-color: var(--background-pantalla-carga1);
-  }
-  50% {
-    background-color: var(--background-pantalla-carga2);
-  }
-  100% {
-    background-color: var(--background-pantalla-carga3);
-  }
-}
-
-section.loading > h1 {
-  font-size: 3rem;
+  background-color: --background-mainBody;
 }
 
 /*MAIN Y HEADER*/
@@ -112,7 +76,7 @@ h1 {
 
 main {
   height: 80vh;
-  background-color: var(--background-main);
+  background-color: var(--background-mainBody);
 }
 
 /* Botón modo nocturno */
@@ -134,6 +98,43 @@ main {
 #modo.noche {
   background-image: url(../imagenes/sun-regular.svg);
   background-size: 1.7rem;
+}
+
+/* SECTION DE LA CARGA */
+
+section.loading {
+  height: 100vh;
+  width: 100vw;
+  opacity: 0.9;
+  font-size: 3rem;
+  text-align: center;
+  display: grid;
+  place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  animation-name: moveColor;
+  animation-duration: 1.5s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  font-family: "Tinos" serif;
+}
+
+@keyframes moveColor {
+  0% {
+    background-color: var(--background-pantalla-carga1);
+  }
+  50% {
+    background-color: var(--background-pantalla-carga2);
+  }
+  100% {
+    background-color: var(--background-pantalla-carga3);
+  }
+}
+
+section.loading > h1 {
+  font-size: 3rem;
 }
 
 /* CSS DEL FORM EMPIEZA AQUÍ */
@@ -252,10 +253,30 @@ button {
   transform: scale(0.95);
 }
 
+#escala {
+  height: 15px;
+  width: 15px;
+  font-size: 20rem;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  justify-self: center;
+  align-self: center;
+  margin-right: 0.5rem;
+}
+
 /* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
 
 label {
   display: none;
+}
+label#escalaLabel {
+  font-size: 1.4rem;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  display: inline;
+  margin-bottom: 1rem;
+
+  font-family: "Tinos", serif;
 }
 
 /* SECCION DE VUELOS */
@@ -264,7 +285,7 @@ section.seccion_vuelos {
   display: flex;
   flex-direction: column;
   width: 100vw;
-  background-color: var(--background-main);
+  background-color: var(--background-mainBody);
   margin: 0 auto;
   list-style: none;
   gap: 0.6rem;
@@ -356,6 +377,10 @@ li h2 {
   font-size: 2.3rem;
 }
 
+p#escalaAeropuerto {
+  font-weight: bold;
+}
+
 #precio {
   display: inline-block;
   background-color: var(--background-letra-y-precio);
@@ -403,7 +428,7 @@ article.salida_llegada p#toggle {
 
 article.detalles {
   display: flex;
-  height: 100px;
+  height: 170px;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -413,17 +438,15 @@ article.detalles {
   overflow: hidden;
 }
 
-article.collapsing {
-  transition: height 0.35s ease;
-}
 article.collapsed {
-  height: 0;
+  height: 0 !important;
 }
 
 article.detalles > p {
   flex-grow: 2;
   font-size: 1.4rem;
   padding-right: 0.5rem;
+  padding-top: 0.5rem;
 }
 
 /*ajustes de media*/
@@ -440,6 +463,16 @@ article.detalles > p {
     width: 9rem;
     height: 2.5rem;
   }
+
+  #escala {
+    margin-right: 1rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1rem;
   }
@@ -469,8 +502,21 @@ article.detalles > p {
     height: 2rem;
   }
 
+  #escala {
+    margin-right: 1rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1rem;
+  }
+
+  article.detalles {
+    height: 210px;
   }
 
   article.detalles > p {
@@ -512,8 +558,20 @@ article.detalles > p {
     height: 2rem;
   }
 
+  #escala {
+    margin-right: 0.5rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1.5rem;
+  }
+  article.detalles {
+    height: 170px;
   }
 
   article.detalles > p {
@@ -548,6 +606,9 @@ article.detalles > p {
     background-size: 80px;
     width: 5rem;
     height: 5rem;
+  }
+  #escala {
+    margin-left: 1.5rem;
   }
 
   h1 {

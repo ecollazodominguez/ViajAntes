@@ -30,18 +30,13 @@ const removePanel = (panel) => {
   panel.remove();
 };
 
-//funcion que segun el estado de la clase en el que esté el article se expande o se colapsa
+//funcion que segun si tiene la clase "collapsed" el article se expande o se colapsa
 const collapseDetallesBillete = (e) => {
   const articleToggle = e.target.querySelector("article#collapse");
-
-  let height = getComputedStyle(articleToggle).height;
-  if (height === "0px") {
-    articleToggle.classList.replace("collapsed", "collapsing");
-  } else {
-    articleToggle.classList.replace("collapsing", "collapsed");
-  }
+  articleToggle.classList.toggle("collapsed");
 };
 
+//función que recoge todos los elementos LI.BILLETE y los recorre agregandole el evento con la funcion collapse
 const handlerCollapse = (billetes) => {
   for (let i = 0; i < billetes.length; i++) {
     billetes[i].addEventListener("click", collapseDetallesBillete);
