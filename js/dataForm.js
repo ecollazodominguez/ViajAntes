@@ -41,6 +41,7 @@ function swap() {
 async function getDataForm() {
   let origen = vuelosForm.elements.origen.value;
   let destino = vuelosForm.elements.destino.value;
+  let escala = vuelosForm.elements.escala.checked;
   const pasajeros = "1";
   const fecha = getNextDay();
 
@@ -56,6 +57,7 @@ async function getDataForm() {
     destino,
     pasajeros,
     fecha,
+    escala,
   };
 }
 

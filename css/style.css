@@ -253,10 +253,30 @@ button {
   transform: scale(0.95);
 }
 
+#escala {
+  height: 15px;
+  width: 15px;
+  font-size: 20rem;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  justify-self: center;
+  align-self: center;
+  margin-right: 0.5rem;
+}
+
 /* CSS DE LOS ELEMENTOS DEL FORM EMPIEZA AQUÍ */
 
 label {
   display: none;
+}
+label#escalaLabel {
+  font-size: 1.4rem;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  display: inline;
+  margin-bottom: 1rem;
+
+  font-family: "Tinos", serif;
 }
 
 /* SECCION DE VUELOS */
@@ -357,6 +377,10 @@ li h2 {
   font-size: 2.3rem;
 }
 
+p#escalaAeropuerto {
+  font-weight: bold;
+}
+
 #precio {
   display: inline-block;
   background-color: var(--background-letra-y-precio);
@@ -404,7 +428,7 @@ article.salida_llegada p#toggle {
 
 article.detalles {
   display: flex;
-  height: 160px;
+  height: 170px;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
@@ -415,7 +439,7 @@ article.detalles {
 }
 
 article.collapsed {
-  height: 0;
+  height: 0 !important;
 }
 
 article.detalles > p {
@@ -439,6 +463,16 @@ article.detalles > p {
     width: 9rem;
     height: 2.5rem;
   }
+
+  #escala {
+    margin-right: 1rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1.2rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1rem;
   }
@@ -468,8 +502,21 @@ article.detalles > p {
     height: 2rem;
   }
 
+  #escala {
+    margin-right: 1rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1rem;
+  }
+
+  article.detalles {
+    height: 210px;
   }
 
   article.detalles > p {
@@ -511,8 +558,20 @@ article.detalles > p {
     height: 2rem;
   }
 
+  #escala {
+    margin-right: 0.5rem;
+  }
+
+  label#escalaLabel {
+    font-size: 1rem;
+    margin-left: 1rem;
+  }
+
   li.llegada {
     margin-top: 1.5rem;
+  }
+  article.detalles {
+    height: 170px;
   }
 
   article.detalles > p {
@@ -547,6 +606,9 @@ article.detalles > p {
     background-size: 80px;
     width: 5rem;
     height: 5rem;
+  }
+  #escala {
+    margin-left: 1.5rem;
   }
 
   h1 {

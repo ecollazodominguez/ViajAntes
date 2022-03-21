@@ -67,10 +67,11 @@ const auth = async () => {
 //Función que busca los vuelos en la API en función de los parámetros dados
 const searchAPI = async () => {
   const dataForm = await getDataForm();
-  const [origen, destino, pasajeros, fechaSalida] = Object.values(dataForm);
+  const [origen, destino, pasajeros, fechaSalida, escala] =
+    Object.values(dataForm);
 
   const accessToken = await auth();
-  const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origen.toUpperCase()}&destinationLocationCode=${destino.toUpperCase()}&departureDate=${fechaSalida}&adults=${pasajeros}&nonStop=true&max=5`;
+  const url = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origen.toUpperCase()}&destinationLocationCode=${destino.toUpperCase()}&departureDate=${fechaSalida}&adults=${pasajeros}&nonStop=${escala}&max=5`;
 
   //Usamos fetch para hacer la petición y en este caso en los headers del fetch ponemos el access Token para mostrar que estamos autorizados
   const response = await fetch(url, {
@@ -90,13 +91,14 @@ const searchAPI = async () => {
       "Lo sentimos, no hay vuelos disponibles entre estos aeropuertos."
     );
   }
-  //Devolvemos todos los vuelos
+
   return vuelos;
 };
 
 const getVuelos = async () => {
   //Llamamos a la función que nos hace la petición a la API y recogemos la respuesta que son los vuelos.
   const vuelos = await searchAPI();
+  console.log(vuelos);
 
   //Hacemos un filtrado de los datos, cogiendo solo los vuelos en que los billetes SE PUEDEN COMPRAR,
   // luego ordenamos los datos según el precio de menor a mayor
@@ -104,20 +106,22 @@ const getVuelos = async () => {
 
   const datos = vuelos.data
     .filter((vuelo) => {
-      return vuelo.pricingOptions.fareType[0] === "PUBLISHED";
+      return (
+        vuelo.pricingOptions.fareType[0] === "PUBLISHED" &&
+        vuelo.itineraries[0].segments.length < 3
+      );
     })
     .sort((a, b) => {
       return a.price.total - b.price.total;
     })
     .map((vuelo) => {
+      let escalaAeropuerto = "";
       //Tiempo de salida se representa como "fechaThora" para recoger bien los datos directamente dividimon el string por "T" y tendremos fecha y hora separados.
       const tiempoSalida =
         vuelo.itineraries[0].segments[0].departure.at.split("T");
       //Duración se representa como "PT14H20M" para recoger bien los datos eliminamos los 2 primeros caracteres "PT" y asi tener "14H20M";
       const duracion = vuelo.itineraries[0].duration.slice(2);
-      //Tiempo de llegada es lo mismo que el de salida pero como la fecha ya la tenemos (es el mismo día) solo nos interesa la hora, así que obviamos la fecha.
-      const [fechaLlegada, tiempoLlegada] =
-        vuelo.itineraries[0].segments[0].arrival.at.split("T");
+
       const codigoAerolinea = vuelo.itineraries[0].segments[0].carrierCode;
       //aerolinea no está en "vuelos.data" así que accedo a los datos con la variable de fuera (Quizá no es buena idea?)
       //el objeto "carriers" tiene como keys el codigo de aerolinea y como valor el nombre de la aerolia así que
@@ -127,7 +131,23 @@ const getVuelos = async () => {
       const aerolinea = vuelos.dictionaries.carriers[codigoAerolinea];
 
       const origen = vuelo.itineraries[0].segments[0].departure.iataCode;
-      const destino = vuelo.itineraries[0].segments[0].arrival.iataCode;
+
+      //Tiempo de llegada es lo mismo que el de salida pero como la fecha ya la tenemos (es el mismo día) solo nos interesa la hora, así que obviamos la fecha.
+      let [fechaLlegada, tiempoLlegada] =
+        vuelo.itineraries[0].segments[0].arrival.at.split("T");
+      let destino = vuelo.itineraries[0].segments[0].arrival.iataCode;
+
+      //Si el array segments tiene más de 1 de longitud hay escalas cogemos los datos de la ultima llegada
+      if (vuelo.itineraries[0].segments.length > 1) {
+        //Destino ahora mismo tiene el aeropuerto de escala así que nos aprovechamos de ello
+        escalaAeropuerto = destino;
+        //la ultima posición de segments tiene los datos reales de llegada
+        const datosLlegada = vuelo.itineraries[0].segments.length - 1;
+        //sacamos fechas y destino
+        [fechaLlegada, tiempoLlegada] =
+          vuelo.itineraries[0].segments[datosLlegada].arrival.at.split("T");
+        destino = vuelo.itineraries[0].segments[datosLlegada].arrival.iataCode;
+      }
 
       return {
         //devuelvo un Objeto con los datos qu eme interesan.
@@ -147,6 +167,7 @@ const getVuelos = async () => {
             .quantity,
         codigoAerolinea,
         aerolinea,
+        escalaAeropuerto,
       };
     });
 
@@ -160,12 +181,16 @@ const getVuelos = async () => {
 // console.log("Salida",vuelos.data[0].itineraries[0].segments[0].departure.at);
 // console.log("terminalSalida",vuelos.data[0].itineraries[0].segments[0].departure.terminal);
 // console.log("aeropuertoSalida",vuelos.data[0].itineraries[0].segments[0].departure.iataCode);
+
+//Vuelo directo
 // console.log("llegada",vuelos.data[0].itineraries[0].segments[0].arrival.at);
 // console.log("terminalLlegada",vuelos.data[0].itineraries[0].segments[0].arrival.terminal);
 // console.log("aeropuertoLlegada",vuelos.data[0].itineraries[0].segments[0].arrival.iataCode);
 
-// console.log("Ticket a la venta?",vuelos.data[0].pricingOptions.fareType[0]);
+//Con escala accedemos al último array de segments
+// console.log("llegada",vuelos.data[0].itineraries[0].segments[1].arrival.iataCode);
 
+// console.log("Ticket a la venta?",vuelos.data[0].pricingOptions.fareType[0]);
 // console.log("Opciones viajero cabina",vuelos.data[0].travelerPricings[0].fareDetailsBySegment[0].cabin);
 // console.log("Facturación maleta",vuelos.data[0].travelerPricings[0].fareDetailsBySegment[0].includedCheckedBags.quantity);
 // const aerolineaCode = vuelos.data[0].itineraries[0].segments[0].carrierCode;
@@ -217,7 +242,12 @@ const creacionFichaDeVuelos = async () => {
                   <p>Facturación: ${datoSacado.facturacion}</p>
                   <p>Duración: ${datoSacado.duracion}</p>
                   <p>${datoSacado.aerolinea} - ${datoSacado.codigoAerolinea}</p>
-                  <p>${datoSacado.tipoBillete}</P>  
+                  <p>${datoSacado.tipoBillete}</p>  
+                  ${
+                    datoSacado.escalaAeropuerto === ""
+                      ? ""
+                      : `<p id="escalaAeropuerto">Escala en: ${datoSacado.escalaAeropuerto}</p>`
+                  }
                 </article>
               </article>
             <p id="precio">${datoSacado.precio}€</p>
