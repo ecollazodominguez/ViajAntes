@@ -275,7 +275,7 @@ label#escalaLabel {
   grid-row: 4/5;
   display: inline;
   margin-bottom: 1rem;
-
+  color: var(--background-letra);
   font-family: "Tinos", serif;
 }
 
