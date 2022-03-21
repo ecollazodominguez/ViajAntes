@@ -476,6 +476,11 @@ article.detalles > p {
   li.llegada {
     margin-top: 1rem;
   }
+
+  article.detalles {
+    height: 200px;
+  }
+
   article.detalles > p {
     font-size: 1.3rem;
   }
