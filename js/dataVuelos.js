@@ -6,7 +6,7 @@ import { getDataForm } from "./dataForm.js";
 const checkResponse = async (response) => {
   if (!response.ok) {
     if (response.status === 429) {
-      throw new Error("Se ha producido un error. Vuelva a intentarlo.");
+      throw new Error("Demasiadas peticiones. Vuelva a intentarlo.");
     } else {
       throw new Error(
         "Ha ocurrido un error en la petición. Vuelva a intentarlo."
@@ -86,7 +86,9 @@ const searchAPI = async () => {
 
   //Si no hay datos salta error
   if (vuelos.data.length === 0) {
-    throw new Error("Ha ocurrido un error. Vuelva a intentarlo");
+    throw new Error(
+      "Lo sentimos, no hay vuelos disponibles entre estos aeropuertos."
+    );
   }
   //Devolvemos todos los vuelos
   return vuelos;
@@ -212,9 +214,9 @@ const creacionFichaDeVuelos = async () => {
                 </li>
                 <p id="toggle">Pulsa para más detalles</p>
                 <article id="collapse" class="detalles collapsed">
-                  <p>Facturación: ${datoSacado.facturacion} </p>
-                  <p>Duración: ${datoSacado.duracion} </p>
-                  <p>${datoSacado.aerolinea}  - ${datoSacado.codigoAerolinea}</p>
+                  <p>Facturación: ${datoSacado.facturacion}</p>
+                  <p>Duración: ${datoSacado.duracion}</p>
+                  <p>${datoSacado.aerolinea} - ${datoSacado.codigoAerolinea}</p>
                   <p>${datoSacado.tipoBillete}</P>  
                 </article>
               </article>
