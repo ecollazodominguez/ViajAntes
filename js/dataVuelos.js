@@ -87,9 +87,7 @@ const searchAPI = async () => {
 
   //Si no hay datos salta error
   if (vuelos.data.length === 0) {
-    throw new Error(
-      "Lo sentimos, no hay vuelos disponibles entre estos aeropuertos."
-    );
+    throw new Error("Lo sentimos, no hay vuelos disponibles.");
   }
 
   return vuelos;
